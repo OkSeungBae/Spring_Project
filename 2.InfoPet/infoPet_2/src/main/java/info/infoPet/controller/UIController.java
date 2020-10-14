@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,6 +22,7 @@ public class UIController {
 	
 	@Autowired
 	UserService userService;
+	
 	
 	@RequestMapping(value = "/login")
 	public ModelAndView loginPage() {
@@ -46,7 +48,9 @@ public class UIController {
 	@RequestMapping(value = "/signup")
 	public ResponseEntity<?> findUser(@RequestBody User reqUser) {
 		
-		User user  = userService.findByUserEmailAndName(reqUser.getEmail(), reqUser.getName());
+		System.out.println("signup");
+		
+		User user  = userService.findByUserEmailOrName(reqUser.getEmail(), reqUser.getName());
 		
 		if(user != null) { // 아이디(이메일) 이미 존재
 			return new ResponseEntity<>("{}",HttpStatus.FAILED_DEPENDENCY );
@@ -56,5 +60,20 @@ public class UIController {
 			return new ResponseEntity(reqUser, HttpStatus.CREATED);
 		}
 	}
+	
+	//메인 페이지 검색 -승배-
+	@RequestMapping(value = "/search")
+	public ResponseEntity<?> findFulldata(@RequestBody String text) {
+		
+		System.out.println("search search search my na" + text);
+		return null;
+	}
+	
+	// 태준 작업 할 것
+	@RequestMapping(value = "/loginrequest")
+	   public ResponseEntity<?> loginreqUser(@RequestBody User reqUser) {
+	      
+	      return null;
+	   }
 	
 }
