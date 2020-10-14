@@ -46,7 +46,7 @@ public class UIController {
 	@RequestMapping(value = "/signup")
 	public ResponseEntity<?> findUser(@RequestBody User reqUser) {
 		
-		User user  = userService.findByUserEmail(reqUser.getEmail());
+		User user  = userService.findByUserEmailAndName(reqUser.getEmail(), reqUser.getName());
 		
 		if(user != null) { // 아이디(이메일) 이미 존재
 			return new ResponseEntity<>("{}",HttpStatus.FAILED_DEPENDENCY );

@@ -13,8 +13,8 @@ public class UserService {
 		this.userRepository = userRepositroy;
 	}
 	
-	public User findByUserEmail (String email) {
-		return userRepository.findByEmail(email);
+	public User findByUserEmailAndName (String email , String name) {
+		return userRepository.findByEmailAndName(email, name);
 	}
 	
 	public void save(User user) {
