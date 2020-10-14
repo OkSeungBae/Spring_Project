@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
@@ -17,6 +17,16 @@
 
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.css?ver=1" rel="stylesheet">
+  
+   <!-- Bootstrap core JavaScript-->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="js/sb-admin-2.min.js"></script>
 
 </head>
 
@@ -52,9 +62,7 @@
                         <label class="custom-control-label" for="customCheck">Remember Me</label>
                       </div>
                     </div>
-                    <a href="/index" class="btn btn-primary btn-user btn-block">
-                      로그인
-                    </a>
+                    <button href="/index" class="btn btn-primary btn-user btn-block" id="login">로그인</button>
                   </form>
                   <hr>
                   <div class="text-center">
@@ -71,16 +79,30 @@
     </div>
 
   </div>
-
-  <!-- Bootstrap core JavaScript-->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Core plugin JavaScript-->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-  <!-- Custom scripts for all pages-->
-  <script src="js/sb-admin-2.min.js"></script>
+  <script type="text/javascript">
+        $('#login').click(function () {
+            var jsonData = JSON.stringify({
+            	name:$('#name').val(),
+        		email:$('#email').val(),
+        		password:$('#password').val()
+            });
+            $.ajax({ 
+                       url: "http://localhost:8080/login",
+                       type: "POST",
+                       data: jsonData,
+                       contentType: "application/json",
+                       dataType: "json",
+                       success: function () {
+                           alert('로그인!');
+                           location.href = '/index';
+                       },
+                       error: function () {
+                           alert('이메일 또는 비밀번호를 확인해 주세요!');
+                       }
+                   });
+        });
+  </script>
+  
 
 </body>
 

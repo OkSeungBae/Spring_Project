@@ -17,6 +17,16 @@
 
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.css" rel="stylesheet">
+  
+   <!-- Bootstrap core JavaScript-->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="js/sb-admin-2.min.js"></script>
 
 </head>
 
@@ -34,27 +44,19 @@
               <div class="text-center">
                 <h1 class="h4 text-gray-900 mb-4">회원가입</h1>
               </div>
-              <table class = "table">
+              
               <form class="user">
                 <div class="form-group">
-                    <input type="text" class="form-control form-co/ntrol-user" id="name" placeholder="이름" th:value ="${user?.name}">
+                   <input type="text" class="form-control form-control-user" id="name" placeholder="이름" th:value ="${user?.name}">
                 </div>
                 <div class="form-group">
                   <input type="email" class="form-control form-control-user" id="email" placeholder="이메일" th:value ="${user?.email}">
                 </div>
-                <div class="form-group row">
-                  <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="password" class="form-control form-control-user" id="password" placeholder="비밀번호" th:value ="${user?.password}">
-                  </div>
-                  <div class="col-sm-6">
-                    <input type="password" class="form-control form-control-user" id="comfirmPassword" placeholder="비밀번호 확인" >
-                  </div>
+                <div class="form-group">
+                  <input type="password" class="form-control form-control-user" id="password" placeholder="비밀번호" th:value ="${user?.password}">
                 </div>
-                </table>
-                
-                <button type="button" class="btn btn-primary btn-user btn-block" id="signup" onclick="">
-                  회원가입
-                </button>
+
+                <button type="button" class="btn btn-primary btn-user btn-block" id="signup" >회원가입</button>
                 <hr>
               </form>
               <!--	비밀번호 찾기 
@@ -73,12 +75,12 @@
 
   </div>
 
-  <script th:src="@{/js/jquery.min.js}">
+  <script type="text/javascript">
         $('#signup').click(function () {
         	var jsonData=JSON.stringify({
         		name:$('#name').val(),
         		email:$('#email').val(),
-        		password:$('#password').val(),
+        		password:$('#password').val()
         	});
             
         	$.ajax({
@@ -90,9 +92,9 @@
                     "Authorization": "Basic " + btoa("havi" + ":" + "test")
                 },
                 dataType: "json",
-                    success: function () {
-                        alert('회원가입 성공!');
-                        location.href = '/login';
+                success: function () {
+                    alert('회원가입 성공!');
+                    location.href = '/login';
                 },
                 error: function () {
                     alert('회원가입 실패!');
@@ -100,16 +102,6 @@
             });
         });
     </script>
-
-  <!-- Bootstrap core JavaScript-->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Core plugin JavaScript-->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-  <!-- Custom scripts for all pages-->
-  <script src="js/sb-admin-2.min.js"></script>
 
 </body>
 
