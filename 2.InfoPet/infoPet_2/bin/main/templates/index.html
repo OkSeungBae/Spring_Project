@@ -39,7 +39,7 @@
   <script src="js/demo/chart-pie-demo.js"></script>
   
 </head>
-
+===>[[ ${findDataList} ]]
 <body id="page-top">
 
   <!-- Page Wrapper -->
@@ -76,10 +76,16 @@
             </div>
           </form>
           
+          	<script th:inline="javascript">
+    		/*<![CDATA[*/
+				var result = /*[[ ${findDataList} ]]*/;
+			/*]]*/
+			</script>
+          
            <script type="text/javascript">
         $('#searchBtn').click(function () {
         	var jsonData=JSON.stringify({
-        		Text : $("#searchTextbox").val()
+        		name : $("#searchTextbox").val(),
         	});
             
         	$.ajax({
@@ -90,14 +96,10 @@
                 headers: {
                     "Authorization": "Basic " + btoa("havi" + ":" + "test")
                 },
-                dataType: "json",
-                success: function () {
-                    alert('회원가입 성공!');
-                },
-                error: function () {
-                    alert('중복된 이메일 입니다!');
-                }
+                dataType: "json"
             });
+        	alert(result);
+        	
         });
     	</script>
 
