@@ -1,5 +1,7 @@
 package info.infoPet.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import info.infoPet.model.FullData;
 import info.infoPet.model.User;
+import info.infoPet.service.FullDataService;
 import info.infoPet.service.UserService;
 import info.infoPet.repository.UserRepository;
 
@@ -23,6 +27,8 @@ public class UIController {
 	@Autowired
 	UserService userService;
 	
+	@Autowired
+	   FullDataService fullDataService;
 	
 	@RequestMapping(value = "/login")
 	public ModelAndView loginPage() {
@@ -61,19 +67,32 @@ public class UIController {
 		}
 	}
 	
-	//메인 페이지 검색 -승배-
-	@RequestMapping(value = "/search")
-	public ResponseEntity<?> findFulldata(@RequestBody String text) {
-		
-		System.out.println("search search search my na" + text);
-		return null;
-	}
+	 @RequestMapping(value = "/search")
+	   public ModelAndView findFulldata(@RequestBody FullData fullData) {
+	      
+	      List<FullData> findFullDataList = fullDataService.findByName(fullData.getName());
+	      for(FullData findData : findFullDataList) {
+	         System.out.println("찾음 :: " + findData.getManageid());
+	      }
+	      
+	      ModelAndView mv = new ModelAndView();
+	      mv.addObject("findDataList", "test");
+	      mv.setViewName("test");
+	      return mv;
+	   }
 	
-	// 태준 작업 할 것
 	@RequestMapping(value = "/loginrequest")
 	   public ResponseEntity<?> loginreqUser(@RequestBody User reqUser) {
+	    
+		User user = userService.findByUserEmailAndPassword(reqUser.getEmail(), reqUser.getPassword());
 	      
-	      return null;
+	      if(user != null) { // 아이디, 패스워드 일치 
+	    	  return new ResponseEntity<>("{}", HttpStatus.OK);
+	      }
+	      else { // 로그인 정보 불일치
+	    	  return new ResponseEntity<>("{}",HttpStatus.FAILED_DEPENDENCY );
+	      }
+	      
 	   }
 	
 }
